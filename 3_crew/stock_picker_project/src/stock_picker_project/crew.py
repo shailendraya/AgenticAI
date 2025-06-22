@@ -7,10 +7,9 @@ from .tools.push_tool import PushNotificationTool
 from crewai.memory import LongTermMemory, ShortTermMemory, EntityMemory
 from crewai.memory.storage.rag_storage import RAGStorage
 from crewai.memory.storage.ltm_sqlite_storage import LTMSQLiteStorage
-from datetime import datetime
-
 import logging
 logging.basicConfig(filename='crewai_run.log', level=logging.INFO)
+
 
 class TrendingCompany(BaseModel):
     """ A company that is in the news and attracting attention """
@@ -41,8 +40,6 @@ class StockPicker():
     agents_config = 'config/agents.yaml'
     tasks_config = 'config/tasks.yaml'
 
-
-
     def on_task_start(task, agent):
         print(f"\n🟡 [START] {task.name} by {agent.name} at {datetime.now()}")
         print(f"➡️  Input Context: {task.context}\n")
@@ -50,7 +47,6 @@ class StockPicker():
     def on_task_complete(task, agent, output):
         print(f"\n🟢 [COMPLETE] {task.name} by {agent.name} at {datetime.now()}")
         print(f"✅ Output: {output}\n")
-
 
     @agent
     def trending_company_finder(self) -> Agent:
@@ -105,8 +101,6 @@ class StockPicker():
             process=Process.hierarchical,
             verbose=True,
             manager_agent=manager,
-            on_task_start=self.on_task_start,
-            on_task_complete=self.on_task_complete,
             memory=True,
             # Long-term memory for persistent storage across sessions
             long_term_memory = LongTermMemory(
