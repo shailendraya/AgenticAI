@@ -6,7 +6,7 @@ from autogen_core import AgentId
 import messages
 import asyncio
 
-HOW_MANY_AGENTS = 20
+HOW_MANY_AGENTS = 5
 
 async def create_and_message(worker, creator_id, i: int):
     try:
